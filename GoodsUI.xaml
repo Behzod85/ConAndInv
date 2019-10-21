@@ -5,8 +5,44 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ConAndInv"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="50" d:DesignWidth="1080">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="2.5*"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="2.5*"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <local:UintTextBox x:Name="contractNumberTB" />
+        <ComboBox Width="{Binding ActualWidth, ElementName=contractGoodNameTB, Mode=OneWay}"  SelectionChanged="contractGoodDescriptionCB_SelectionChanged" Grid.Column="2" Name="contractGoodDescriptionCB" Margin="0 2" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" TextTrimming="CharacterEllipsis"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBox Grid.Column="4" x:Name="contractGoodNameTB" Margin="0 2" />
+        <TextBox Grid.Column="6" x:Name="contractGoodFormatTB" Margin="0 2" />
+        <TextBox Grid.Column="8" x:Name="contractGoodVolumeTB" Margin="0 2" />
+        <local:UintTextBox TextChanged="contractGoodQuantityTB_TextChanged" Grid.Column="10" x:Name="contractGoodQuantityTB" Margin="0 2" />
+        <local:DoubleTextBox TextChanged="contractGoodQuantityTB_TextChanged" Grid.Column="12" x:Name="contractGoodPriceTB" Margin="0 2" />
+        <local:UintTextBox TextChanged="contractGoodQuantityTB_TextChanged" Grid.Column="14" x:Name="contractGoodVadTB" Margin="0 2" />
+        <TextBlock Grid.Column="16" x:Name="contractGoodSumTBl" Margin="0 2"/>
+        <TextBlock Grid.Column="18" x:Name="contractGoodSumVadTBl" Margin="0 2"/>
     </Grid>
 </UserControl>

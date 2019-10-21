@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ConAndInv
 {
     [Serializable]
-    class Goods
+    public class Goods
     {
         public string Description { get; set; }
         public string Name { get; set; }
@@ -24,7 +24,7 @@ namespace ConAndInv
         }
         public double sumWithVad ()
         {
-            return sum() * VadInPercent / 100.0;
+            return sum() * (VadInPercent / 100.0 + 1);
         }
         public double vadToPay()
         {

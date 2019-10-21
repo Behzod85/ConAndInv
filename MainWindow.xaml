@@ -3,31 +3,404 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:ConAndInv"
         xmlns:local="clr-namespace:ConAndInv"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000">
+        Title="MainWindow" Height="600" Width="1100">
     <Grid>
         <TabControl x:Name="tabControl">
             <TabItem Header="Договора">
-                <StackPanel Margin="10">
-                    <Label Content="_Name:" Target="{Binding ElementName=txtName}" />
-                    <TextBox Name="txtName" />
-                    <Label Content="_Mail:" Target="{Binding ElementName=txtMail}" />
-                    <TextBox Name="txtMail" />
-                </StackPanel>
+                <DockPanel Margin="10">
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*" />
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2.5*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="5" />
+                            </Grid.RowDefinitions>
 
+                            <TextBlock Text="Номер Договора" HorizontalAlignment="Right" Padding="0 0 10 0" />
+                            <StackPanel Grid.Column="1"  Orientation="Horizontal">
+                                <local:UintTextBox TextChanged="contractNumberTB_TextChanged" x:Name="contractNumberTB" Text="117" Width="50" />
+                                <TextBlock Text="от" Padding="10 0 10 0" />
+                                <DatePicker SelectedDateChanged="partnerNameCB_SelectionChanged" SelectedDateFormat="Long"  Name="contractDateDP" />
+                            </StackPanel>
+
+                            <TextBlock Grid.Row="2"  Text="Название партнера" HorizontalAlignment="Right" Padding="0 0 10 0"/>
+                            <ComboBox SelectionChanged="partnerNameCB_SelectionChanged" Grid.Row="2" Name="partnerNameCB" Grid.Column="1"/>
+
+                            <TextBlock Grid.Row="4" Text="Имя файла" HorizontalAlignment="Right" Padding="0 0 10 0"/>
+                            <local:FileNameTextBox Grid.Row="4" x:Name="fileNameTB" Grid.Column="1"/>
+
+                            <TextBlock Grid.Row="6" Text="Используется" HorizontalAlignment="Right" Padding="0 0 10 0"/>
+                            <ComboBox Grid.Row="6" Name="materialCB" Grid.Column="1"/>
+                        </Grid>
+                        <StackPanel Grid.Column="2" Orientation="Vertical">
+                            <TextBlock Text="Данные фирмы:" />
+                            <TextBlock x:Name="aboutPartnerTBl" TextWrapping="Wrap" Text="lkjsdfsdflkj" />
+
+                        </StackPanel>
+
+                        <Grid Grid.Column="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="1.5*"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="5"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Переделать договор" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right" />
+                            <ComboBox Grid.Row="0"  Grid.Column="2"  Name="editContractCB" VerticalAlignment="Center"/>
+                            <Button Click="editContractBtn_Click" Grid.Row="0"  Grid.Column="5" x:Name="editContractBtn" VerticalAlignment="Center">Открыть</Button>
+
+                            <TextBlock Grid.Row="3"  Grid.Column="0" Text="Введите цену" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right" />
+                            <local:DoubleTextBox Grid.Row="3"  Grid.Column="2" x:Name="calculateVadTB" Text="0" VerticalAlignment="Center"/>
+                            <Button Click="calculateVadBtn_Click" Grid.Row="3" Grid.Column="5" x:Name="calculateVadBtn" VerticalAlignment="Center">
+                                <TextBlock Text="Считать цену" TextWrapping="Wrap" />
+                            </Button>
+                        </Grid>
+                    </Grid>
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="2.5*"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="2.5*"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="№" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="2" Text="Наименования продукции" Grid.ColumnSpan="3" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Column="6" Text="Формат" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="8" Text="Объем" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="10" Text="Количество" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="12" Text="Цена" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="14" Text="НДС" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="16" Text="Сумма" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="18" Text="Сумма с НДС" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <StackPanel DockPanel.Dock="Bottom" Grid.Row="2" Orientation="Horizontal" >
+                        <Button Click="contractOKBtn_Click" x:Name="contractOKBtn" Margin="0 0 100 0">
+                            <TextBlock Text="Сохранить и в Word" Width="200" HorizontalAlignment="Center" TextAlignment="Center"/>
+                        </Button>
+
+                        <ComboBox Name="contractSwitch1CB" Width="70" Margin="0 0 10 0"/>
+                        <Button Click="contractSwitchBtn_Click" x:Name="contractSwitchBtn" Margin="0 0 10 0">
+                            <TextBlock Text="менять" Width="70" HorizontalAlignment="Center" TextAlignment="Center"/>
+                        </Button>
+                        <ComboBox Name="contractSwitch2CB" Width="70" Margin="0 0 100 0"/>
+
+                        
+                        <local:UintTextBox x:Name="contractListMinusTB"  Width="70" Margin="0 0 10 0" />
+                        <Button Click="contractListMinusBtn_Click" x:Name="contractListMinusBtn" Margin="0 0 75 0">
+                            <TextBlock Text="-" Width="70" HorizontalAlignment="Center" TextAlignment="Center"/>
+                        </Button>
+                        <Button Click="contractListAddBtn_Click" x:Name="contractListAddBtn">
+                            <TextBlock Text="+" Width="70" HorizontalAlignment="Center" TextAlignment="Center"/>
+                        </Button>
+                    </StackPanel>
+                    <ListView Name="contractDataContainerLV" HorizontalContentAlignment="Stretch">
+                        
+                    </ListView>
+
+
+                </DockPanel>
             </TabItem>
             <TabItem Header="Счет-фактуры">
-            
+                <DockPanel Margin="10">
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                            
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Номер счет-фактуры" TextAlignment="Right" TextWrapping="Wrap"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Номер договора" TextAlignment="Right" TextWrapping="Wrap"/>
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Номер доверенности" TextAlignment="Right" TextWrapping="Wrap"/>
+                        <TextBlock Grid.Row="6" Grid.Column="0" Text="Доверенность выдан" TextAlignment="Right" TextWrapping="Wrap"/>
+                        <TextBlock Grid.Row="8" Grid.Column="0" Text="Парнёр" TextAlignment="Right" TextWrapping="Wrap"/>
+                        <TextBlock Grid.Row="0" Grid.Column="4" Text="от" TextAlignment="Center"/>
+                        <TextBlock Grid.Row="2" Grid.Column="4" Text="от" TextAlignment="Center"/>
+                        <TextBlock Grid.Row="4" Grid.Column="4" Text="от" TextAlignment="Center"/>
+
+                        <local:UintTextBox Grid.Row="0" Grid.Column="2" x:Name="invNameTB"/>
+                        <ComboBox SelectionChanged="invContractNumber_SelectionChanged" Grid.Row="2" Grid.Column="2" Name="invContractNumber" ItemsSource="{Binding ItemsSource, ElementName=editContractCB}"/>
+                        <TextBox Grid.Row="4" Grid.Column="2" x:Name="invAttorneyNumberTB" />
+                        <TextBox Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="5" x:Name="invAttorneyPersonTB" />
+                        <ComboBox Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="5" Name="invPartner" ItemsSource="{Binding ItemsSource, ElementName=pPartnerDescriptionCB}"/>
+                        <DatePicker Grid.Row="0" Grid.Column="6" SelectedDateFormat="Long"  Name="invDateDP" />
+                        <DatePicker Grid.Row="2" Grid.Column="6" SelectedDateFormat="Long"  Name="invContractDateDP" />
+                        <DatePicker Grid.Row="4" Grid.Column="6" SelectedDateFormat="Long"  Name="invAttorneyDateDP" />
+                        <TextBlock Name="invRequisitesTbl" Grid.Row="0" Grid.Column="8" Grid.RowSpan="9" Text="invRequisitesTbl" TextAlignment="Center" TextWrapping="WrapWithOverflow"/>
+                        <Grid Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="9">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.3*"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="2.5*"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="№"/>
+                            <TextBlock Text="Нименование продукции" Grid.Column="2"/>
+                            <TextBlock Text="Количество" Grid.Column="4"/>
+                            <TextBlock Text="Цена" Grid.Column="6"/>
+                            <TextBlock Text="НДС" Grid.Column="8"/>
+                            <TextBlock Text="Сумма" Grid.Column="10"/>
+                            <TextBlock Text="Сумма с НДС" Grid.Column="12"/>
+                        </Grid>
+                    </Grid>
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+                        <Button x:Name="invWordBtn" Margin="0 0 20 0">
+                            <TextBlock Text="Отправить в Word" Width="120" HorizontalAlignment="Center" TextAlignment="Center"/>
+                        </Button>
+                        <Button x:Name="invExcelBtn" Margin="0 0 75 0">
+                            <TextBlock Text="Отправить в Excel" Width="120" HorizontalAlignment="Center" TextAlignment="Center"/>
+                        </Button>
+
+                        <ComboBox Name="invSwap1CB" Width="70" Margin="0 0 10 0"/>
+                        <Button Click="invSwapBtn_Click" x:Name="invSwapBtn" Margin="0 0 10 0">
+                            <TextBlock Text="менять" Width="70" HorizontalAlignment="Center" TextAlignment="Center"/>
+                        </Button>
+                        <ComboBox Name="invSwap2CB" Width="70" Margin="0 0 100 0"/>
+
+
+                        <local:UintTextBox x:Name="invListMinusTB"  Width="70" Margin="0 0 10 0" />
+                        <Button Click="invListMinusBtn_Click" x:Name="invListMinusBtn" Margin="0 0 75 0">
+                            <TextBlock Text="-" Width="70" HorizontalAlignment="Center" TextAlignment="Center"/>
+                        </Button>
+                        <Button Click="invListAddBtn_Click" x:Name="invListAddBtn">
+                            <TextBlock Text="+" Width="70" HorizontalAlignment="Center" TextAlignment="Center"/>
+                        </Button>
+                    </StackPanel>
+                    <ListView Name="invDataContainerLV" HorizontalContentAlignment="Stretch"/>
+                </DockPanel>
             </TabItem>
             <TabItem Header="Партнёры">
-            
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+ 
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Короткая название партнёра" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Имя партнёра" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="0" Grid.Row="4" Text="Короткая название партнёра (+имя файла)" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="0" Grid.Row="6" Text="Адрес партнёра" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="0" Grid.Row="8" Text="Производственный адрес партнёра (если имеется)" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="0" Grid.Row="10" Text="Р/сч партнёра" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="0" Grid.Row="12" Text="Банк партнёра" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="0" Grid.Row="14" Text="Должность и ФИО партнёра" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="0" Grid.Row="16" Text="Партнёр действует на основании" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="0" Grid.Row="18" Text="МФО партнёра" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="0" Grid.Row="20" Text="ИНН партнёра" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="0" Grid.Row="22" Text="ОКЭД партнёра" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="0" Grid.Row="24" Text="Регистрационный номер НДС партнёра" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="0" Grid.Row="26" Text="Партнёр обычно выдает доверенность лицам" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="0" Grid.Row="28" Text="Телефон" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+                    <ComboBox SelectionChanged="pPartnerDescriptionCB_SelectionChanged"  Grid.Column="2" Grid.Row="0" Name="pPartnerDescriptionCB"/>
+                    <TextBox Grid.Column="2" Grid.Row="2" Name="pPartnerNameTB" />
+                    <local:FileNameTextBox Grid.Column="2" Grid.Row="4" x:Name="pPartnerDescriptionTB" />
+                    <TextBox Grid.Column="2" Grid.Row="6" Name="pPartnerAddressTB" />
+                    <TextBox Grid.Column="2" Grid.Row="8" Name="pPartnerOptionalAddressTB" />
+                    <TextBox Grid.Column="2" Grid.Row="10" Name="pPartnerCurrentAccountTB" />
+                    <TextBox Grid.Column="2" Grid.Row="12" Name="pPartnerBankTB" />
+                    <TextBox Grid.Column="2" Grid.Row="14" Name="pPartnerPostAndNameOfRespondentTB" />
+                    <TextBox Grid.Column="2" Grid.Row="16" Name="pPartnerBasedOnTB" />
+                    <TextBox Grid.Column="2" Grid.Row="18" Name="pPartnerBankIdentificationTB" />
+                    <TextBox Grid.Column="2" Grid.Row="20" Name="pPartnerTaxpayerIdentificationNumberTB" />
+                    <TextBox Grid.Column="2" Grid.Row="22" Name="pPartnerOcedTB" />
+                    <TextBox Grid.Column="2" Grid.Row="24" Name="pPartnerVadNumberTB" />
+                    <TextBox Grid.Column="2" Grid.Row="26" Name="pPartnerAttroneyTB" />
+                    <TextBox Grid.Column="2" Grid.Row="28" Name="pPartnerTelephonesTB" />
+                    <DockPanel Grid.ColumnSpan="3" Grid.Row="30" Grid.Column="0">
+                        <Button DockPanel.Dock="Right" Click="pAddBtn_Click" x:Name="pAddBtn" Width="140" Margin="10 0 0 0">Добавить</Button>
+                        <Button DockPanel.Dock="Right" Click="pEditBtn_Click" x:Name="pEditBtn" Width="140" Margin="10 0 0 0">Изменить</Button>
+                        <Button DockPanel.Dock="Right" Click="pRemoveBtn_Click" x:Name="pRemoveBtn" Width="140" Margin="60 0 0 0">Удалить</Button>
+                        <Button DockPanel.Dock="Right" x:Name="pParseBtn" Width="200"  Margin="10 0 0 0">Заполнить по ИНН</Button>
+                        <local:UintTextBox x:Name="pPartnerParseINNTB" />
+                        
+                    </DockPanel>
+                </Grid>
             </TabItem>
             <TabItem Header="Товары">
-            
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Описание товара" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Right" HorizontalAlignment="Right" FontSize="16"/>
+                    <TextBlock Text="Описание товара" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" TextAlignment="Right" HorizontalAlignment="Right" FontSize="16"/>
+                    <TextBlock Text="Наименование" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" TextAlignment="Right" HorizontalAlignment="Right" FontSize="16"/>
+                    <TextBlock Text="Формат" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right" FontSize="16"/>
+                    <TextBlock Text="Объем" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" TextAlignment="Right" HorizontalAlignment="Right" FontSize="16"/>
+                    <TextBlock Text="Цена" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" TextAlignment="Right" HorizontalAlignment="Right" FontSize="16"/>
+                    <TextBlock Text="НДС" Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right" FontSize="16"/>
+                    <ComboBox SelectionChanged="gDescriptionCB_SelectionChanged" Name="gDescriptionCB" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" FontSize="16"/>
+                    <TextBox x:Name="gDescriptionTB" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" FontSize="16" />
+                    <TextBox x:Name="gNameTB" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" FontSize="16" />
+                    <TextBox x:Name="gFormatTB" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" FontSize="16" />
+                    <TextBox x:Name="gVolumeTB" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" FontSize="16" />
+                    <local:DoubleTextBox x:Name="gPriceTB" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" FontSize="16" />
+                    <local:UintTextBox x:Name="gVadInPercentTB" Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" FontSize="16" />
+                    <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="3">
+                        <Button Click="gAddBtn_Click" x:Name="gAddBtn" Width="150" Margin="20">Добавить</Button>
+                        <Button Click="gEditBtn_Click" x:Name="gEditBtn" Width="150" Margin="20">Редактировать</Button>
+                        <Button Click="gRemoveBtn_Click" x:Name="gRemoveBtn" Width="150" Margin="20">Удалить</Button>
+                    </StackPanel>
+                </Grid>
             </TabItem>
             <TabItem Header="Настройки">
-            
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="0">
+                        <TextBlock Text="Путь к папке Договоров" DockPanel.Dock="Left" TextWrapping="Wrap" Width="200" VerticalAlignment="Center" TextAlignment="Right"/>
+                        <Button Click="sePathToContractsFolderBtn_Click" x:Name="sePathToContractsFolderBtn" Width="100" DockPanel.Dock="Right">...</Button>
+                        <TextBox x:Name="sePathToContractsFolderTB" Margin="20 0"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="2">
+                        <TextBlock Text="Путь к папке Счет-Фактур " DockPanel.Dock="Left" TextWrapping="Wrap" Width="200"  VerticalAlignment="Center" TextAlignment="Right"/>
+                        <Button Click="sePathToContractsFolderBtn_Click"  x:Name="sePathToInvoicesFolderBtn" Width="100" DockPanel.Dock="Right">...</Button>
+                        <TextBox x:Name="sePathToInvoicesFolderTB" Margin="20 0"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="4">
+                        <TextBlock Text="Путь к папке Счет-Фактур Excel" DockPanel.Dock="Left" TextWrapping="Wrap" Width="200" VerticalAlignment="Center" TextAlignment="Right"/>
+                        <Button Click="sePathToContractsFolderBtn_Click"  x:Name="sePathToInvoicesExcellFolderBtn" Width="100" DockPanel.Dock="Right">...</Button>
+                        <TextBox x:Name="sePathToInvoicesExcellFolderTB" Margin="20 0"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="6">
+                        <TextBlock Text="Текущий номер договора" DockPanel.Dock="Left" TextWrapping="Wrap" Width="200" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <local:UintTextBox x:Name="seCurrentContractNumberTB" DockPanel.Dock="Left" Margin="20 0 0 0"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="8">
+                        <TextBlock Text="Текущая ставка НДС" DockPanel.Dock="Left" TextWrapping="Wrap" Width="200" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <local:UintTextBox x:Name="seCurrentVadTB" DockPanel.Dock="Left" Margin="20 0 0 0"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="10">
+                        <Button Click="seSaveBtn_Click"  x:Name="seSaveBtn" Width="200" DockPanel.Dock="Right">Сохранить</Button>
+                        <TextBlock Text="Будьте внимательны при сохранении настроек" TextWrapping="Wrap" VerticalAlignment="Center" TextAlignment="Center" Foreground="Red" FontSize="22"/>
+                        
+                    </DockPanel>
+                </Grid>
             </TabItem>
            
         </TabControl>

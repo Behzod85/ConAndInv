@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -57,12 +58,23 @@
     </ApplicationDefinition>
     <Compile Include="CIDocument.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="DoubleTextBox.cs" />
+    <Compile Include="FileNameTextBox.cs" />
     <Compile Include="Goods.cs" />
     <Compile Include="GoodsUI.xaml.cs">
       <DependentUpon>GoodsUI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InGoods.xaml.cs">
+      <DependentUpon>InGoods.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Requisite.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="UintTextBox.cs" />
     <Page Include="GoodsUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InGoods.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
