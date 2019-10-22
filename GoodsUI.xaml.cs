@@ -87,16 +87,16 @@ namespace ConAndInv
             contractGoodSumTBl.Text = sum().ToString();
             contractGoodSumVadTBl.Text = sumWithVad().ToString();
         }
-        private double sum()
+        private decimal sum()
         {
 
             return Constants.StringToInt(contractGoodQuantityTB.Text) * Constants.StringToDouble(contractGoodPriceTB.Text);
         }
-        private double sumWithVad()
+        private decimal sumWithVad()
         {
-            return sum() * (Constants.StringToInt(contractGoodVadTB.Text) / 100.0 + 1);
+            return sum() * (Constants.StringToInt(contractGoodVadTB.Text) / 100.0m + 1);
         }
-        private double vadToPay()
+        private decimal vadToPay()
         {
             return sumWithVad() - sum();
         }

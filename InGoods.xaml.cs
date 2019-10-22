@@ -25,14 +25,14 @@ namespace ConAndInv
             InitializeComponent();
         }
 
-        private double sum()
+        public decimal sum()
         {
 
             return Constants.StringToInt(invGoodQuantityTB.Text) * Constants.StringToDouble(invGoodPriceTB.Text);
         }
-        private double sumWithVad()
+        public decimal sumWithVad()
         {
-            return sum() * (Constants.StringToInt(invGoodVadTB.Text) / 100.0 + 1);
+            return sum() * (Constants.StringToInt(invGoodVadTB.Text) / 100.0m + 1);
         }
 
         private void invGoodQuantityTB_TextChanged(object sender, TextChangedEventArgs e)

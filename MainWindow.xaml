@@ -212,10 +212,7 @@
                         </Grid>
                     </Grid>
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-                        <Button x:Name="invWordBtn" Margin="0 0 20 0">
-                            <TextBlock Text="Отправить в Word" Width="120" HorizontalAlignment="Center" TextAlignment="Center"/>
-                        </Button>
-                        <Button x:Name="invExcelBtn" Margin="0 0 75 0">
+                        <Button Click="invExcelBtn_Click" x:Name="invExcelBtn" Margin="0 0 75 0">
                             <TextBlock Text="Отправить в Excel" Width="120" HorizontalAlignment="Center" TextAlignment="Center"/>
                         </Button>
 
@@ -398,11 +395,10 @@
                     <DockPanel Grid.Row="10">
                         <Button Click="seSaveBtn_Click"  x:Name="seSaveBtn" Width="200" DockPanel.Dock="Right">Сохранить</Button>
                         <TextBlock Text="Будьте внимательны при сохранении настроек" TextWrapping="Wrap" VerticalAlignment="Center" TextAlignment="Center" Foreground="Red" FontSize="22"/>
-                        
+
                     </DockPanel>
                 </Grid>
             </TabItem>
-           
         </TabControl>
 
     </Grid>

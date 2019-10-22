@@ -17,6 +17,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using word = Microsoft.Office.Interop.Word;
+using excel = Microsoft.Office.Interop.Excel;
 
 namespace ConAndInv
 {
@@ -59,7 +61,7 @@ namespace ConAndInv
             if (MyRequisites != null) partnerNameCB.SelectedIndex = 0;
             setUpContractsComponents();
             materialCB.SelectedIndex = 0;
-
+            
 
 
         }
@@ -68,7 +70,7 @@ namespace ConAndInv
 
         #region Serialization save, load
 
-        
+
         private T loadBinFile<T>(T myType)
         {
             string fileName = "unknown.bin";
@@ -84,7 +86,7 @@ namespace ConAndInv
             {
                 fileName = Constants.PARTNER_FILE_NAME;
             }
-            else if (typeof(T) == typeof(List<Settings>))
+            else if (typeof(T) == typeof(Settings))
             {
                 fileName = Constants.SETTINGS_FILE_NAME;
             }
@@ -103,14 +105,14 @@ namespace ConAndInv
 
                 return myType;
             }
-            
+
 
         }
-        
+
         private void saveBinFile<T>(T myType)
         {
             string fileName = "unknown.bin";
-            if(typeof(T) == typeof(List<CIDocument>))
+            if (typeof(T) == typeof(List<CIDocument>))
             {
                 fileName = Constants.CONTRACT_FILE_NAME;
             } else if (typeof(T) == typeof(List<Goods>))
@@ -121,7 +123,7 @@ namespace ConAndInv
             {
                 fileName = Constants.PARTNER_FILE_NAME;
             }
-            else if (typeof(T) == typeof(List<Settings>))
+            else if (typeof(T) == typeof(Settings))
             {
                 fileName = Constants.SETTINGS_FILE_NAME;
             }
@@ -165,9 +167,9 @@ namespace ConAndInv
             {
                 System.Windows.MessageBox.Show($"Запись с названием {newReq.Descrtipion} уже существует. Измените короткое имя партнёра!", "Повторение!!!"); ;
             }
-            
+
         }
-        
+
         private void pEditBtn_Click(object sender, RoutedEventArgs e)
         {
             var i = pPartnerDescriptionCB.SelectedIndex;
@@ -208,7 +210,7 @@ namespace ConAndInv
             MyRequisites.Sort((i1, i2) => i1.Descrtipion.CompareTo(i2.Descrtipion));
             var partnersDescription = new string[MyRequisites.Count];
 
-            for(var i = 0; i < MyRequisites.Count(); i++)
+            for (var i = 0; i < MyRequisites.Count(); i++)
             {
                 partnersDescription[i] = MyRequisites[i].Descrtipion;
             }
@@ -248,12 +250,12 @@ namespace ConAndInv
         {
             using (var fbd = new frm.FolderBrowserDialog())
             {
-               frm.DialogResult result = fbd.ShowDialog();
+                frm.DialogResult result = fbd.ShowDialog();
 
                 if (!string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
                     var senderBtn = (Button)sender;
-                    if(senderBtn.Name == "sePathToContractsFolderBtn")
+                    if (senderBtn.Name == "sePathToContractsFolderBtn")
                     {
                         sePathToContractsFolderTB.Text = fbd.SelectedPath;
                     }
@@ -296,11 +298,11 @@ namespace ConAndInv
 
 
         #region MyContracts priceVad, setUP, setUPfileName, PartnerNameSelectionChanged, addButton, MinusButton, SwapButton
-         
-        
+
+
         private void calculateVadBtn_Click(object sender, RoutedEventArgs e)
         {
-                calculateVadTB.Text = (Constants.StringToDouble(calculateVadTB.Text) / ((setting.currentVad + 100.0) / 100)).ToString();
+            calculateVadTB.Text = (Constants.StringToDouble(calculateVadTB.Text) / ((setting.currentVad + 100.0m) / 100)).ToString();
         }
         private void setUpContractsComponents()
         {
@@ -333,7 +335,7 @@ namespace ConAndInv
             if (contractDateDP == null) return;
             int pNameCB = partnerNameCB.SelectedIndex;
             if (pNameCB < 0) return;
-            fileNameTB.Text = $"№{contractNumberTB.Text}_{MyRequisites[partnerNameCB.SelectedIndex].Descrtipion}_{contractDateDP.SelectedDate.Value.Year.ToString()}"; 
+            fileNameTB.Text = $"№{contractNumberTB.Text}_{MyRequisites[partnerNameCB.SelectedIndex].Descrtipion}_{contractDateDP.SelectedDate.Value.Year.ToString()}";
         }
 
         private void partnerNameCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -373,9 +375,9 @@ namespace ConAndInv
 
         private void contractListMinusBtn_Click(object sender, RoutedEventArgs e)
         {
-            if(int.TryParse(contractListMinusTB.Text, out int i))
+            if (int.TryParse(contractListMinusTB.Text, out int i))
             {
-                if (i <= MyGoodUIs.Count && i>0)
+                if (i <= MyGoodUIs.Count && i > 0)
                 {
                     MyGoodUIs.RemoveAt(i - 1);
                     contractDataContainerLV.Items.Clear();
@@ -409,7 +411,7 @@ namespace ConAndInv
             var itemSource = new int[i];
             for (var j = 0; j < i; j++)
             {
-                itemSource[j] = j+1;
+                itemSource[j] = j + 1;
             }
             contractSwitch1CB.ItemsSource = itemSource;
             contractSwitch2CB.ItemsSource = itemSource;
@@ -425,14 +427,15 @@ namespace ConAndInv
                 Date = contractDateDP.SelectedDate.GetValueOrDefault(),
                 Material = (Material)materialCB.SelectedIndex,
                 Requisite = MyRequisites[partnerNameCB.SelectedIndex],
-                Goods = documentGoods()
+                Goods = documentGoods(),
+                FileName = fileNameTB.Text
 
             };
             var i = MyContracts.FindIndex(j => j.Number == contract.Number);
-            if(i == -1)
+            if (i == -1)
             {
                 MyContracts.Add(contract);
-                
+
             } else
             {
                 MyContracts[i] = contract;
@@ -524,7 +527,7 @@ namespace ConAndInv
             };
 
 
-           if(int.TryParse(gVadInPercentTB.Text, out int i))
+            if (int.TryParse(gVadInPercentTB.Text, out int i))
             {
                 good.VadInPercent = i;
             }
@@ -541,7 +544,7 @@ namespace ConAndInv
                 System.Windows.MessageBox.Show($"Запись с названием {good.Description} уже существует. Измените описание товара!", "Повторение!!!"); ;
             }
 
-            
+
         }
 
         private void gEditBtn_Click(object sender, RoutedEventArgs e)
@@ -603,7 +606,170 @@ namespace ConAndInv
 
         private void publishContractToWord(CIDocument contract)
         {
+            var wordApp = new word.Application();
+            wordApp.Visible = true;
+            var path = "D:\\Data\\dogovorNDS.dotm";
 
+            var wDoc = wordApp.Documents.Add(path);
+            wDoc.Variables["dognomer"].Value = contract.Number.ToString();
+            wDoc.Variables["data1"].Value = contract.Date.ToString("«dd» MMMM yyyy");
+            wDoc.Variables["nazvanieFirmi"].Value = contract.Requisite.PartnerName;
+            wDoc.Variables["licoFirmi"].Value = contract.Requisite.PostAndNameOfRespondent;
+            wDoc.Variables["osnovanieFirmi"].Value = contract.Requisite.BasedOn;
+
+            var wTable1 = wDoc.Tables[1];
+            int row = 2;
+            var allSum = 0.0m;
+            var allSumVat = 0.0m;
+            foreach (Goods item in contract.Goods)
+            {
+                wordTable(wTable1, row, item);
+                allSum += item.sum();
+                allSumVat += item.sumWithVad();
+                if (contract.Goods.Count > (row - 1))
+                {
+                    wTable1.Rows.Add(wTable1.Rows.Last);
+                }
+                row++;
+            }
+            wDoc.Variables["itogZ"].Value = doubleToString(allSum);
+            decimal vat = allSumVat - allSum;
+            if (vat != 0)
+            {
+                wDoc.Variables["onlyNDS"].Value = doubleToString(vat);
+            } else
+            {
+                wDoc.Variables["onlyNDS"].Value = "Без НДС";
+            }
+            
+            wDoc.Variables["nds"].Value = doubleToString(allSumVat);
+
+
+            wDoc.Variables["summaPropisyu"].Value = Summa.Пропись(allSumVat, Currenc.Сум, Case.Первая).Replace(" 00 тийин", "");
+
+            
+            if (allSumVat != allSum)
+            {
+                wDoc.Variables["summaPropisyu"].Value += " в т.ч. НДС " + doubleSumAndTiyin(allSumVat - allSum);
+            }
+            else
+            {
+                wDoc.Variables["summaPropisyu"].Value += ".";
+            }
+
+            wDoc.Variables["data2"].Value = contract.Date.ToString("dd.MM.yyyy");
+            wDoc.Variables["material"].Value = CIDocument.getArrayOfMaterials()[contract.getMaterialInt()];
+
+            wDoc.Variables["adresFirmi"].Value = contract.Requisite.ToString();
+
+
+
+            wDoc.Fields.Update();
+
+            wDoc.Fields.UpdateSource();
+            wDoc.Fields.ToggleShowCodes();
+            wDoc.Fields.Unlink();
+
+            wDoc.SaveAs2(setting.PathToContractsFolder + "\\" + contract.FileName + ".docx");
+
+
+        }
+        private bool isDoubleFloating(decimal d)
+        {
+            decimal myInt = Math.Floor(d);
+            decimal myFloat = d - myInt;
+            if (myFloat > 0)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+        private string doubleToString (decimal d)
+        {
+            
+            decimal myInt = Math.Floor(d);
+            decimal myFloat = d - myInt;
+
+            string s = myInt.ToString("### ### ### ### ### ###").TrimStart();
+
+            if (myFloat > 0 )
+            {
+                s += myFloat.ToString().Replace("0,", ",");
+            } 
+
+
+
+            return s;
+        }
+        private string doubleToString2(decimal d)
+        {
+
+            decimal myInt = Math.Floor(d);
+            decimal myFloat = d - myInt;
+
+            string s = myInt.ToString();
+
+            if (myFloat > 0)
+            {
+                s += myFloat.ToString().Replace("0,", ",");
+            }
+
+
+
+            return s;
+        }
+        private string doubleSumAndTiyin (decimal d) {
+            var s = "";
+            s = d.ToString("N", CultureInfo.CreateSpecificCulture("fr-CA"));
+            var k = "";
+            int zap = s.IndexOf(',');
+            if (zap >= 0)
+            {
+                k = s.Substring(zap);
+                k = k.Replace(",", "");
+                s = s.Substring(0, zap);
+            }
+            if (k.Replace("0","").Length > 0)
+            {
+                return s + " сум " + k + " тийин.";
+            } else
+            {
+                return s + " сум.";
+            }
+
+            
+        }
+        private void wordTable(word.Table t, int row, Goods g)
+        {
+            t.Cell(row, 1).Range.Text = (row-1).ToString();
+            t.Cell(row, 2).Range.Text = g.Name;
+            t.Cell(row, 3).Range.Text = g.Format;
+            t.Cell(row, 4).Range.Text = g.Volume;
+            t.Cell(row, 5).Range.Text = g.Quantity.ToString("### ### ### ### ### ###").TrimStart();
+            t.Cell(row, 6).Range.Text = doubleToString(g.Price);
+            t.Cell(row, 7).Range.Text = doubleToString(g.sum());
+            decimal vat = g.sumWithVad() - g.sum();
+            if (vat == 0)
+            {
+                t.Cell(row, 8).Range.Text = "Без НДС";
+            } else
+            {
+                t.Cell(row, 8).Range.Text = doubleToString(vat);
+            }
+            
+            t.Cell(row, 9).Range.Text = doubleToString(g.sumWithVad());
+
+            t.Cell(row, 1).Range.Bold = 0;
+            t.Cell(row, 2).Range.Bold = 0;
+            t.Cell(row, 3).Range.Bold = 0;
+            t.Cell(row, 4).Range.Bold = 0;
+            t.Cell(row, 5).Range.Bold = 0;
+            t.Cell(row, 6).Range.Bold = 0;
+            t.Cell(row, 7).Range.Bold = 0;
+            t.Cell(row, 8).Range.Bold = 0;
+            t.Cell(row, 9).Range.Bold = 0;
         }
         private void publishInvoiceToWord(CIDocument contract)
         {
@@ -614,6 +780,9 @@ namespace ConAndInv
 
         }
 
+        #region Invoice setups
+
+        
         private void invContractNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var i = invContractNumber.SelectedIndex;
@@ -705,6 +874,39 @@ namespace ConAndInv
             {
                 invDataContainerLV.Items.Add(item);
             }
+        }
+
+        #endregion
+
+        private void invExcelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var eApp = new excel.Application();
+            var path = "D:\\Data\\factura.xltm";
+            var eDoc = eApp.Workbooks.Add(path);
+            int row = 10;
+            excel.Worksheet wSheet = (excel.Worksheet)eApp.ActiveSheet;
+            foreach (InGoods item in MyInvGoods)
+            {
+
+                wSheet.Cells[row, 1] = item.invGoodNumberTB.Text;
+                wSheet.Cells[row, 2] = item.invGoodNameTB.Text;
+                wSheet.Cells[row, 3] = "1";
+                wSheet.Cells[row, 4] = item.invGoodQuantityTB.Text;
+                wSheet.Cells[row, 5] = item.invGoodPriceTB.Text;
+                wSheet.Cells[row, 6] = doubleToString2(item.sum());
+                wSheet.Cells[row, 7] = item.invGoodVadTB.Text;
+                wSheet.Cells[row, 8] = doubleToString2(item.sumWithVad() - item.sum());
+                wSheet.Cells[row, 9] = doubleToString2(item.sumWithVad());
+                wSheet.Cells[row, 10] = "0";
+                wSheet.Cells[row, 11] = "0";
+                wSheet.Cells[row, 12] = doubleToString2(item.sumWithVad());
+                row++;
+
+            }
+            eDoc.SaveAs(setting.PathToInvoicesExcellFolder + "\\D№" + invContractNumber.Text + "_" + invContractDateDP.SelectedDate.Value.ToString("yyyy") + ".xlsx");
+            eDoc.Close();
+            eApp.Quit();
+            MessageBox.Show("Создан Excel файл");
         }
     }
 }

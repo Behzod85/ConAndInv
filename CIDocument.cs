@@ -16,6 +16,7 @@ namespace ConAndInv
     [Serializable]
     public class CIDocument
     {
+        public string FileName { get; set; }
         private static string[] materials = new string[] { "бумага исполнителя", "материал исполнителя", "бумага заказчика", "материал заказчика" };
         private Material material;
         public int Number { get; set; }

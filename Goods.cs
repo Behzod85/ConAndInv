@@ -14,19 +14,19 @@ namespace ConAndInv
         public string Format { get; set; }
         public string Volume { get; set; }
         public int Quantity { get; set; }
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         public int VadInPercent { get; set; }
 
-        public double sum ()
+        public decimal sum ()
         {
 
             return Quantity * Price;
         }
-        public double sumWithVad ()
+        public decimal sumWithVad ()
         {
-            return sum() * (VadInPercent / 100.0 + 1);
+            return sum() * (VadInPercent / 100.0m + 1);
         }
-        public double vadToPay()
+        public decimal vadToPay()
         {
             return sumWithVad() - sum();
         }

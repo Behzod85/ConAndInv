@@ -8,17 +8,17 @@ namespace ConAndInv
 {
     public static class Constants
     {
-        public const string CONTRACT_FILE_NAME = "contracts.bin";
-        public const string GOOD_FILE_NAME = "goods.bin";
-        public const string PARTNER_FILE_NAME = "partners.bin";
-        public const string SETTINGS_FILE_NAME = "settings.bin";
-        public static double StringToDouble(string s)
+        public const string CONTRACT_FILE_NAME = "D:\\Data\\contracts.bin";
+        public const string GOOD_FILE_NAME = "D:\\Data\\goods.bin";
+        public const string PARTNER_FILE_NAME = "D:\\Data\\partners.bin";
+        public const string SETTINGS_FILE_NAME = "D:\\Data\\settings.bin";
+        public static decimal StringToDouble(string s)
         {
             var s2 = s.Replace(".", ",");
-            if (double.TryParse(s2, out double d))
+            if (decimal.TryParse(s2, out decimal d))
                 return d;
             else
-                return 0.0;
+                return 0.0m;
         }
 
         public static int StringToInt(string s)
