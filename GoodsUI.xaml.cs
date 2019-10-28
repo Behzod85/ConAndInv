@@ -26,10 +26,22 @@ namespace ConAndInv
         private List<Goods> MyGoods = new List<Goods>();
         public ObservableCollection<string> MyProperty2 { get; set; } = new ObservableCollection<string>();
         public List<TextBlock> MyProperty { get; set; }
+        private double wi=0.5;
+        public string Wi
+        {
+            get
+            {
+                // wi = this.ActualWidth - 27.0;
+                //wi /= 11.66725002916813;
+                return contractGoodSumTBl.Text;
+            }
+
+        }
         public GoodsUI()
         {
             InitializeComponent();
             setUpGoodsComponents();
+            DataContext = new Class1();
         }
 
         private void contractGoodDescriptionCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
