@@ -153,7 +153,7 @@ namespace ConAndInv
                 BankIdentificationCode = pPartnerBankIdentificationTB.Text,
                 TaxpayerIdentificationNumber = pPartnerTaxpayerIdentificationNumberTB.Text,
                 Oced = pPartnerOcedTB.Text,
-                VadNumber = pPartnerOcedTB.Text,
+                VadNumber = pPartnerVadNumberTB.Text,
                 Attorney = pPartnerAttroneyTB.Text,
                 Telephones = pPartnerTelephonesTB.Text
             };
