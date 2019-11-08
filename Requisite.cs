@@ -41,13 +41,13 @@ namespace ConAndInv
         {
             var s = Address;
             s += "\r";
-            if (OptionalAddress != null) s += $"Производственный адрес: {OptionalAddress} \r";
-            if (Telephones != null) s += $"Телефон: {Telephones} \r";
+            if (OptionalAddress != "") s += $"Производственный адрес: {OptionalAddress} \r";
+            if (Telephones != "") s += $"Телефон: {Telephones} \r";
             s += "р/сч: " + CurrentAccount;
-            s += "\r" + Bank + ". " + BankIdentificationCode;
+            s += "\r" + Bank + ". МФО: " + BankIdentificationCode;
             s += "\r ИНН: " + TaxpayerIdentificationNumber;
-            if (Oced == null) s += "ОКЭД: -";
-            else s += "ОКЭД: " + Oced;
+            if (Oced == null) s += " ОКЭД: -";
+            else s += " ОКЭД: " + Oced;
             s += "\r Рег. код пл-а НДС: " + VadNumber;
             return s;
         }

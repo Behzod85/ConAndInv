@@ -36,13 +36,15 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <TextBox Grid.Column="4" x:Name="contractGoodNameTB" Margin="0 2" />
-        <TextBox Grid.Column="6" x:Name="contractGoodFormatTB" Margin="0 2" />
-        <TextBox Grid.Column="8" x:Name="contractGoodVolumeTB" Margin="0 2" />
-        <local:UintTextBox TextChanged="contractGoodQuantityTB_TextChanged" Grid.Column="10" x:Name="contractGoodQuantityTB" Margin="0 2" />
-        <local:DoubleTextBox TextChanged="contractGoodQuantityTB_TextChanged" Grid.Column="12" x:Name="contractGoodPriceTB" Margin="0 2" />
+        <Border x:Name="ff2" Grid.Column="4" Margin="0 2"/>
+        <TextBox Grid.Column="4" x:Name="contractGoodNameTB" Margin="0 2"  Width="{Binding ActualWidth, ElementName=ff2}" />
+        <Border x:Name="ff" Grid.Column="6" Margin="0 2"/>
+        <TextBox Grid.Column="6" x:Name="contractGoodFormatTB" Margin="0 2" Width="{Binding ActualWidth, ElementName=ff}" />
+        <TextBox Grid.Column="8" x:Name="contractGoodVolumeTB" Margin="0 2" Width="{Binding ActualWidth, ElementName=ff}" />
+        <local:UintTextBox Width="{Binding ActualWidth, ElementName=ff}" TextChanged="contractGoodQuantityTB_TextChanged" Grid.Column="10" x:Name="contractGoodQuantityTB" Margin="0 2" />
+        <local:DoubleTextBox Width="{Binding ActualWidth, ElementName=ff}" TextChanged="contractGoodQuantityTB_TextChanged" Grid.Column="12" x:Name="contractGoodPriceTB" Margin="0 2" />
         <local:UintTextBox TextChanged="contractGoodQuantityTB_TextChanged" Grid.Column="14" x:Name="contractGoodVadTB" Margin="0 2" />
-        <TextBlock Grid.Column="16" x:Name="contractGoodSumTBl" Margin="0 2"/>
-        <TextBlock Grid.Column="18" x:Name="contractGoodSumVadTBl" Margin="0 2"/>
+        <TextBlock Width="{Binding ActualWidth, ElementName=ff}" Grid.Column="16" x:Name="contractGoodSumTBl" Margin="0 2"/>
+        <TextBlock Width="{Binding ActualWidth, ElementName=ff}" Grid.Column="18" x:Name="contractGoodSumVadTBl" Margin="0 2"/>
     </Grid>
 </UserControl>

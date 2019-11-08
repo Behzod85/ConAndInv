@@ -24,7 +24,7 @@ namespace ConAndInv
     public partial class GoodsUI : UserControl
     {
         private List<Goods> MyGoods = new List<Goods>();
-        public ObservableCollection<string> MyProperty2 { get; set; } = new ObservableCollection<string>();
+        
         public List<TextBlock> MyProperty { get; set; }
         public GoodsUI()
         {
