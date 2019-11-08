@@ -43,7 +43,7 @@ namespace ConAndInv
             invContractDateDP.SelectedDate = DateTime.Now;
             invDateDP.SelectedDate = DateTime.Now;
             invAttorneyDateDP.SelectedDate = DateTime.Now;
-           
+
             // Initializing Settings
             setting = loadBinFile<Settings>(setting);
             setUpSettings();
@@ -153,7 +153,7 @@ namespace ConAndInv
                 BankIdentificationCode = pPartnerBankIdentificationTB.Text,
                 TaxpayerIdentificationNumber = pPartnerTaxpayerIdentificationNumberTB.Text,
                 Oced = pPartnerOcedTB.Text,
-                VadNumber = pPartnerVadNumberTB.Text,
+                VadNumber = pPartnerOcedTB.Text,
                 Attorney = pPartnerAttroneyTB.Text,
                 Telephones = pPartnerTelephonesTB.Text
             };
@@ -907,47 +907,6 @@ namespace ConAndInv
             eDoc.Close();
             eApp.Quit();
             MessageBox.Show("Создан Excel файл");
-        }
-
-        private void temp()
-        {
-
-            List<Goods> MyGoods = new List<Goods>();
-            var eApp = new excel.Application();
-            var path = "E:\\Soft\\WordMacros\\partnerList.xlsx";
-            excel.Workbook eWorkbook = eApp.Workbooks.Open(path);
-            excel.Worksheet set = (excel.Worksheet)eWorkbook.Worksheets.Item["settings"];
-            excel.Range setRange = set.Cells[7, 2];
-
-            //if(int.TryParse(setRange.Value, out int c))
-            //{
-            excel.Worksheet goods = (excel.Worksheet)eWorkbook.Worksheets.Item["Goods"];
-
-            for (int i = 0; i < 64; i++)
-            {
-                excel.Range nameExc = goods.Cells[i + 1, 1];
-                excel.Range formatExc = goods.Cells[i + 1, 2];
-                excel.Range obemExc = goods.Cells[i + 1, 3];
-                excel.Range priceExc = goods.Cells[i + 1, 4];
-                excel.Range descriptionExc = goods.Cells[i + 1, 5];
-                Console.WriteLine(priceExc.Value);
-
-                var good = new Goods
-                {
-                    Name = nameExc.Value,
-                    Format = formatExc.Value,
-                    Volume = obemExc.Value,
-                    Description = descriptionExc.Value,
-                    VadInPercent = 15,
-                    Price = Decimal.Parse(priceExc.Value.ToString())
-
-
-                };
-                //if (Decimal.TryParse(priceExc.Value, out decimal result)) good.Price = result;
-                MyGoods.Add(good);
-            }
-            saveBinFile<List<Goods>>(MyGoods);
-            eApp.Quit();
         }
     }
 }
