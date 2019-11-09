@@ -25,7 +25,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>10</ApplicationRevision>
+    <ApplicationRevision>11</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -92,6 +92,9 @@
     <Compile Include="Constants.cs" />
     <Compile Include="DoubleTextBox.cs" />
     <Compile Include="FileNameTextBox.cs" />
+    <Compile Include="FindContract.xaml.cs">
+      <DependentUpon>FindContract.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Goods.cs" />
     <Compile Include="GoodsUI.xaml.cs">
       <DependentUpon>GoodsUI.xaml</DependentUpon>
@@ -103,6 +106,10 @@
     <Compile Include="Requisite.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="UintTextBox.cs" />
+    <Page Include="FindContract.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GoodsUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

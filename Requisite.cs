@@ -44,8 +44,8 @@ namespace ConAndInv
             if (OptionalAddress != "") s += $"Производственный адрес: {OptionalAddress} \r";
             if (Telephones != "") s += $"Телефон: {Telephones} \r";
             s += "р/сч: " + CurrentAccount;
-            s += "\r" + Bank + ". МФО: " + BankIdentificationCode;
-            s += "\r ИНН: " + TaxpayerIdentificationNumber;
+            s += "\r" + Bank + ".\rМФО: " + BankIdentificationCode;
+            s += " ИНН: " + TaxpayerIdentificationNumber;
             if (Oced == null) s += " ОКЭД: -";
             else s += " ОКЭД: " + Oced;
             s += "\r Рег. код пл-а НДС: " + VadNumber;

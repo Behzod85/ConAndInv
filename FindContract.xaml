@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="ConAndInv.FindContract"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ConAndInv"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel Orientation="Vertical">
+        <TextBlock Text="Договор номер № от какогото числа" x:Name="findContractTB"/>
+        <DataGrid Name="fcContracts" AutoGenerateColumns="False" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Наименвание" Binding="{Binding Name, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Формат" Binding="{Binding Format, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Объем" Binding="{Binding Volume, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Количество" Binding="{Binding Quantity, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price, Mode=OneWay}"/>
+                <DataGridTextColumn Header="НДС" Binding="{Binding VadInPercent, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Сумма" Binding="{Binding MySum, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Сумма с НДС" Binding="{Binding MySumWithVat, Mode=OneWay}"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </StackPanel>
+</UserControl>

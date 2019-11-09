@@ -908,5 +908,66 @@ namespace ConAndInv
             eApp.Quit();
             MessageBox.Show("Создан Excel файл");
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            List<CIDocument> contracts = new List<CIDocument>();
+            List<FindContract> findContracts = new List<FindContract>();
+			if (findContractTB.Text == "")
+			{
+                contracts = MyContracts;
+
+            } else
+            {
+                if (findContractPNRB.IsChecked == true)
+                {
+                    contracts = MyContracts.FindAll(cI => cI.Requisite.PartnerName == findContractTB.Text);
+
+                }
+                else if (findContractCIRB.IsChecked == true)
+                {
+                    contracts = MyContracts.FindAll(cI => cI.Goods.Find(g => g.Name.Contains(findContractTB.Text)) != null);
+                }
+                else if (findContractDRB.IsChecked == true)
+                {
+                    contracts = MyContracts.FindAll(cI => cI.Requisite.Descrtipion == findContractTB.Text);
+                }
+            }
+            if (contracts.Count > 0)
+            {
+
+                foreach (var item in contracts)
+                {
+                    FindContract findContract = new FindContract();
+                    Decimal d = 0;
+                    Decimal dv = 0;
+                    foreach (var goods in item.Goods)
+                    {
+                        d += goods.sum();
+                        dv += goods.sumWithVad();
+                    }
+                    findContract.MyNumber = item.Number;
+                    findContract.findContractTB.Text = item.Requisite.PartnerName + ". Договор №" + item.Number.ToString() + " от " + item.Date.ToString("dd.MM.yyyy") + " общая сумма договора: " + d.ToString() + " общая сумма договора с НДС: " + dv.ToString();
+                    findContract.fcContracts.ItemsSource = item.Goods;
+                    findContracts.Add(findContract);
+                }
+            }
+            findContractLB.ItemsSource = findContracts;
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            FindContract con = new FindContract();
+            if (findContractLB.SelectedItem != null)
+            con = (FindContract)findContractLB.SelectedItem;
+            if (con != null)
+            {
+                MyContracts.Remove(MyContracts.Find(item => item.Number == con.MyNumber));
+            }
+
+            saveBinFile<List<CIDocument>>(MyContracts);
+            setUpContractsComponents();
+            Button_Click(null, null);
+        }
     }
 }

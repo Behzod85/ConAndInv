@@ -17,6 +17,17 @@ namespace ConAndInv
         public decimal Price { get; set; }
         public int VadInPercent { get; set; }
 
+        public string MySum
+        {
+            get { return (Quantity * Price).ToString(); }
+        }
+
+        public string MySumWithVat
+        {
+            get { return (sum() * (VadInPercent / 100.0m + 1)).ToString(); }
+
+        }
+
         public decimal sum ()
         {
 

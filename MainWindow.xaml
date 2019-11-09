@@ -399,6 +399,22 @@
                     </DockPanel>
                 </Grid>
             </TabItem>
+            <TabItem Header="Искать договор">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                        <TextBox MinWidth="100" x:Name="findContractTB" Margin="10 0"/>
+                        <RadioButton GroupName="fc" Margin="10 0" x:Name="findContractPNRB" >Название Партнёра</RadioButton>
+                        <RadioButton GroupName="fc" Margin="10 0" x:Name="findContractDRB" >Короткая название партёра</RadioButton>
+                        <RadioButton GroupName="fc" Margin="10 0" x:Name="findContractCIRB" >Содержит пункт</RadioButton>
+                        <Button Click="Button_Click" Margin="10 0">Искать</Button>
+                        <Button Click="Delete_Click" Margin="10 0">Удалить</Button>
+                    </StackPanel>
+                    
+                    <ListView x:Name="findContractLB" HorizontalContentAlignment="Stretch">
+                        
+                    </ListView>
+                </DockPanel>
+            </TabItem>
         </TabControl>
 
     </Grid>
